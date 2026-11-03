@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/runkids/skillshare/main/schemas/project-config.schema.json
+
+targets:
+  - agents:
+      path: ~/.claude/agents
+    name: claude
+    skills:
+      path: ~/.claude/skills
+  - name: codex
+    skills:
+      path: ~/.codex/skills
+  - name: gemini
+    skills:
+      path: ~/.gemini/skills
+
+extras:
+  - name: common-codex
+    source: .skillshare/extras/instructions
+    file: AGENTS.md
+    targets:
+      - path: ~/.codex
+        mode: copy
+        as: AGENTS.md
+  - name: common-claude
+    source: .skillshare/extras/instructions
+    file: AGENTS.md
+    targets:
+      - path: ~/.claude
+        mode: prepend
+        as: CLAUDE.md
+  - name: common-gemini
+    source: .skillshare/extras/instructions
+    file: AGENTS.md
+    targets:
+      - path: ~/.gemini
+        mode: copy
+        as: GEMINI.md
+  - name: codex-agents
+    source: .skillshare/extras/codex-agents
+    targets:
+      - path: ~/.codex/agents
+        mode: merge
+  - name: gemini-agents
+    source: .skillshare/extras/gemini-agents
+    targets:
+      - path: ~/.gemini/agents
+        mode: merge
+
+ignore:
+  - .DS_Store
+  - .git/
+  - __pycache__/
+
+audit:
+  block_threshold: CRITICAL
